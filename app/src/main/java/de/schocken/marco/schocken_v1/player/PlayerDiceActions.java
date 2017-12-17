@@ -29,4 +29,10 @@ public interface PlayerDiceActions extends PlayerActionInformation{
      * @throws IndexOutOfBoundsException
      */
     int getDiceValueOfDiceOut(int index) throws  IndexOutOfBoundsException;
+
+    /**
+     * This method returns the dice value of the player.
+     * @return The dice value.
+     */
+    int getDiceValue();
 }
