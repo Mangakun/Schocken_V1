@@ -24,12 +24,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
 
             }
-            try {
+           /* try {
                 player.blind();
                 Assert.fail("The player cant call blind");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
             try {
                 player.rollTheDice();
             } catch (PlayerActionNotAllowedException e) {
@@ -53,11 +53,11 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can roll the dices");
             }
-            try {
+            /*try {
                 player.blind();
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player cancall blind");
-            }
+            }*/
         }
     }
     /**
@@ -66,12 +66,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
     @Test
     public void playerGeneralTest3(){
         for(final Player player: players) {
-            try {
+           /* try {
                 player.blind();
                 Assert.fail("The player cant call blind");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
             try {
                 player.rollTheDice();
             } catch (PlayerActionNotAllowedException e) {
@@ -101,12 +101,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can openthe cup");
             }
-            try {
+           /* try {
                 player.blind();
                 Assert.fail("The player cant call blind");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
 
         }
     }
@@ -123,12 +123,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
 
             }
-            try {
+           /* try {
                 player.blind();
                 Assert.fail("The player cant call blind");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
             try {
                 player.stay();
                 Assert.fail("The player cant call stay");
@@ -196,12 +196,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
 
             }
-            try {
+            /*try {
                 player.blind();
                 Assert.fail("The player cant call blind");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
         }
     }
     /**
@@ -210,12 +210,12 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
     @Test
     public void playerGeneralTest7() {
         for (final Player player : players) {
-            try {
+           /* try {
                 player.blind();
                 Assert.fail("The player cant call blind!");
             } catch (PlayerActionNotAllowedException e) {
 
-            }
+            }*/
             try {
                 player.openCup();
                 Assert.fail("The player cant open the cup!");
@@ -227,11 +227,11 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can roll the dice");
             }
-            try {
+            /*try {
                 player.blind();
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can call blind");
-            }
+            }*/
         }
     }
     /**
@@ -268,11 +268,11 @@ public class PlayerGeneralPlayerActionTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can roll the dice");
             }
-            try {
+           /* try {
                 player.blind();
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can call blind");
-            }
+            }*/
 
             try {
                 player.openCup();

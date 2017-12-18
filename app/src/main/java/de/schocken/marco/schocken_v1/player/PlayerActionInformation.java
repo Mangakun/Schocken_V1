@@ -20,12 +20,18 @@ public interface PlayerActionInformation extends PlayerActions {
      * This method returns if the player called blind.
      * @return If the player called blind.
      */
-    boolean isBlindCall();
+   /* boolean isBlindCall();*/
 
     /**
      * This method returns if the player has finished its round.
-     * @return If the player has finished its round.
+     * @return True, if the player has finished its round.
      */
     boolean isRoundFinished();
+
+    /**
+     * This method returns if the player has finished with his throws.
+     * @return True, if the player has finished with his throws.
+     */
+    boolean isFinsishedWithThrows();
 
 }

@@ -52,6 +52,16 @@ public class GameObserverImpl implements GameObserver {
         /*
         Eine andere Möglichkeit wäre, dass jeder würfelt und
          */
+
+        // init players
+        for(final Player player : players){
+            player.newGame();
+        }
+        // first player starts the game
+        currentPlayer = players.get(0);
+        currentPlayer.turn( currentPlayer == players.get(0),() ->{
+                System.out.println("players turn");
+        });
     }
 
     /**

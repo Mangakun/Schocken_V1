@@ -27,6 +27,7 @@ public class PlayerActionRollTheDiceTest extends PlayerTest {
                 Assert.fail("The player can roll the dices");
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
+            Assert.assertFalse("The player is not ready with throws",player.isFinsishedWithThrows());
             try {
                 player.openCup();
             } catch (PlayerActionNotAllowedException e) {
@@ -38,6 +39,7 @@ public class PlayerActionRollTheDiceTest extends PlayerTest {
                 Assert.fail("The player can roll the dices");
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
+            Assert.assertFalse("The player is not ready with throws",player.isFinsishedWithThrows());
             try {
                 player.openCup();
             } catch (PlayerActionNotAllowedException e) {
@@ -49,11 +51,13 @@ public class PlayerActionRollTheDiceTest extends PlayerTest {
                 Assert.fail("The player can roll the dices");
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
+            Assert.assertTrue("The player is ready with throws",player.isFinsishedWithThrows());
             try {
                 player.rollTheDice();
                 Assert.fail("The player can not roll the dices a fourth time!");
             } catch (PlayerActionNotAllowedException e) {
             }
+
         }
     }
 

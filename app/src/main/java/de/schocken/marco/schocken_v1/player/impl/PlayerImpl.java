@@ -7,8 +7,8 @@ import java.util.List;
 
 import de.schocken.marco.schocken_v1.dice.Dice;
 import de.schocken.marco.schocken_v1.dice.impl.DiceImpl;
+import de.schocken.marco.schocken_v1.gameobserver.PlayerCallback;
 import de.schocken.marco.schocken_v1.player.Player;
-import de.schocken.marco.schocken_v1.player.exceptions.MaxAddDiceException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxPenaltyException;
 import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedException;
 
@@ -34,24 +34,24 @@ public class PlayerImpl implements Player {
     private int diceThrows;
 
     /**
-     * This variable stores a blind call from the player.
-     */
-    private boolean blindCall;
-
-    /**
      * This variable stores if the player has finished the round.
      */
     private boolean roundFinished;
 
     /**
+     * This variable stores if the player has finished with this throws.
+     */
+    private boolean finishedThrows;
+
+    /**
      * This variable stores if the player can roll
      */
-    private boolean canRoll;
+    private boolean alreadyRolled;
 
     /**
      * This variable stores if the player already opened the cup.
      */
-    private boolean alreadyOpenedCup;
+    private boolean alreadyUp;
 
     /**
      * The penalties of the player.
@@ -67,6 +67,16 @@ public class PlayerImpl implements Player {
      * A list of dices which has the player under the cup and can roll with it.
      */
     private List<Dice> dicesIn;
+
+    /**
+     * An object of the class {@link PlayerCallback}.
+     */
+    private PlayerCallback playerCallback;
+
+    /**
+     * This variable stores if the player is the start player of the game.
+     */
+    private boolean startPlayer;
 
     /**
      * Constructor of the class {@link PlayerImpl}.
@@ -91,8 +101,13 @@ public class PlayerImpl implements Player {
 
     @Override
     public void stay() throws PlayerActionNotAllowedException {
+        /*
+        The player can call stay, when
+        - the cup is opened
+        - the dice throws are between
+         */
         Log.d(debugMSG,"Method stay()");
-        if (diceThrows > 0 && diceThrows <=3 && !blindCall){ // TODO: 3 von settings holen
+        if (diceThrows > 0 && diceThrows <=3 && alreadyUp){ // TODO: 3 von settings holen
             roundFinished = true;
         }else{
             throw new PlayerActionNotAllowedException("The player cant call stay"); // TODO:von Strings.xml holen ?
@@ -101,16 +116,31 @@ public class PlayerImpl implements Player {
 
     @Override
     public void rollTheDice() throws PlayerActionNotAllowedException {
+        /*
+        The player can roll the dices, when
+        - the dice throw is between 0 and 2
+        - has not finished is throws yet
+        - is able to roll after
+        - has finished his round
+         */
+
         Log.d(debugMSG, "Method rollTheDice()");
-        if(diceThrows >= 3 || roundFinished || !canRoll){// TODO: 3 von settings holen
+        if(diceThrows >=0 && diceThrows < 3 && !alreadyRolled && !roundFinished && !finishedThrows){
+            // increase dice throws
+            ++diceThrows;
+            // no roll again
+            alreadyRolled = true;
+            alreadyUp = false;
+            for(int i=0; i<dicesIn.size();++i) {
+                dicesIn.get(i).roll();
+            }
+            // reached maximum of throws
+            if(diceThrows == 3){ // TODO: get from settings
+                finishedThrows = true;
+            }
+        }else{
             throw new PlayerActionNotAllowedException("The player can not roll the dices"); //TODO: von Strings.xml nehmen ?
         }
-        ++diceThrows;
-        for(int i=0; i<dicesIn.size();++i) {
-            dicesIn.get(i).roll();
-        }
-            canRoll = false;
-        alreadyOpenedCup = false;
     }
 
     @Override
@@ -118,51 +148,27 @@ public class PlayerImpl implements Player {
         Log.d(debugMSG,"Method openCup()");
         /*
         The player can only open the cup, when
-        - he has not call blind
-        - he has already opened the cup
+        - he has not already opened the cup
         - he has not finished yet
          */
-        if(diceThrows > 0  && diceThrows < 3 && !blindCall && !alreadyOpenedCup && !roundFinished){
+        if(diceThrows > 0  && diceThrows < 3 && !alreadyUp){
             // TODO: was soll hier gemacht werden
-            canRoll = true;
-            alreadyOpenedCup = true;
+            // now he can roll again
+            alreadyRolled = false;
+            alreadyUp = true;
+            // update player view
+            // stay button active
         }else{
             throw new PlayerActionNotAllowedException("The player can not open the cup"); // TODO: aus trings.xml ?
         }
     }
 
-    @Override
-    public void blind() throws PlayerActionNotAllowedException {
-        Log.d(debugMSG,"Method blind()");
-        /*
-        Theplayer can call blind, when
-        - the player has not called blind before
-        - The player has not
-         */
-        if(diceThrows == 1 && !blindCall && !alreadyOpenedCup/*&&!startPlayer*/){ //TODO: mit einbauen
-            Log.d(debugMSG,"player is calling blind");
-            blindCall = true;
-        }else{
-            throw new PlayerActionNotAllowedException("The player can not call blind"); // TODO: aus trings.xml ?
-        }
-    }
-
-    @Override
-    public void block() throws PlayerActionNotAllowedException {
-        Log.d(debugMSG,"Method block");
-    }
-
-    @Override
+   @Override
     public int getDiceThrows() {
         Log.d(debugMSG,"return dice throws ("+diceThrows+")");
         return diceThrows;
     }
 
-    @Override
-    public boolean isBlindCall() {
-        Log.d(debugMSG,"return is blind call ("+blindCall+")");
-        return blindCall;
-    }
 
     @Override
     public boolean isRoundFinished() {
@@ -171,14 +177,18 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public boolean isFinsishedWithThrows() {
+        return finishedThrows;
+    }
+
+    @Override
     public void newRound() {
-        Log.d(debugMSG,"MEthod newRound()");
+        Log.d(debugMSG,"Method newRound()");
         diceThrows = 0;
         // TODO: clear outs
-        blindCall = false;
         roundFinished = false;
-        canRoll = true;
-        alreadyOpenedCup = false;
+        alreadyRolled = false;
+        alreadyUp = false;
     }
 
     @Override
@@ -193,6 +203,13 @@ public class PlayerImpl implements Player {
         Log.d(debugMSG,"Method nextHalf()");
         newRound();
         playerPenalties = 0;
+    }
+
+    @Override
+    public void turn(boolean startPlayer,PlayerCallback playerCallback) {
+        Log.d(debugMSG,"Method playerCallback()");
+        this.playerCallback = playerCallback;
+        this.startPlayer = startPlayer;
     }
 
     @Override
@@ -221,6 +238,11 @@ public class PlayerImpl implements Player {
     @Override
     public int getDiceValueOfDiceOut(int index) throws IndexOutOfBoundsException {
         return dicesOut.get(index).getValue();
+    }
+
+    @Override
+    public int getDiceValue() {
+        return 0;
     }
 
     /*

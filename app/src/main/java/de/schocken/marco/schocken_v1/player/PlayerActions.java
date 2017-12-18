@@ -32,13 +32,13 @@ public interface PlayerActions extends GameActions{
      * The player calls blind.
      * @throws PlayerActionNotAllowedException
      */
-    void blind() throws PlayerActionNotAllowedException;
+    /*void blind() throws PlayerActionNotAllowedException;*/
 
     /**
      * The player calls block. This is possible to call, when the player has 6 4 1 as dice value.
      * @throws PlayerActionNotAllowedException
      */
-    void block() throws PlayerActionNotAllowedException;
+    /*void block() throws PlayerActionNotAllowedException;*/
 
 
 }

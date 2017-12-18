@@ -52,20 +52,14 @@ public class PlayerActionStayTest extends PlayerTest {
     public void stayTest2(){
         for(final Player player: players) {
             try {
-                player.stay();
-                Assert.fail("The player can not call stay");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            try {
                 player.rollTheDice();
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can roll the dices");
             }
             try {
                 player.stay();
+                Assert.fail("The player can not call stay without opened the cup first");
             } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can call stay");
             }
             try {
                 player.rollTheDice();
@@ -87,11 +81,11 @@ public class PlayerActionStayTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can roll the dices");
             }
-            try {
+            /*try {
                 player.blind();
             } catch (PlayerActionNotAllowedException e) {
                 Assert.fail("The player can call blind");
-            }
+            }*/
             try {
                 player.stay();
                 Assert.fail("The player can not call stay");
