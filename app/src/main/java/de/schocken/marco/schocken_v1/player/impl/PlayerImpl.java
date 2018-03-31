@@ -93,11 +93,70 @@ public class PlayerImpl implements Player {
         dicesOut = new ArrayList<>();
     }
 
+
+
+    /*
     @Override
-    public String getName() {
-        Log.d(debugMSG,"Method getName()");
-        return playerName;
+    public void addDiceToDiceOuts(Dice dice) throws MaxAddDiceException {
+        if(dicesOut.size()+1 > 3){ // TODO: aus settings holen
+            throw new MaxAddDiceException(3);
+        }
+        dicesOut.add(dice);
     }
+
+    @Override
+    public void clearDiceOuts() {
+        dicesOut.clear();
+    }
+    */
+
+    /*
+     * *********************************************
+     * interface methods
+     * ********************************************
+     */
+
+
+    @Override
+    public void newRound() {
+        Log.d(debugMSG,"Method newRound()");
+        diceThrows = 0;
+        // TODO: clear outs
+        roundFinished = false;
+        alreadyRolled = false;
+        alreadyUp = false;
+    }
+
+    @Override
+    public void newGame() {
+        Log.d(debugMSG,"Method newGame()");
+        // TODO: set halfs to zero
+        nextHalf();
+    }
+
+    @Override
+    public void nextHalf() {
+        Log.d(debugMSG,"Method nextHalf()");
+        newRound();
+        playerPenalties = 0;
+    }
+
+    @Override
+    public void turn(boolean startPlayer,PlayerCallback playerCallback) {
+        Log.d(debugMSG,"Method playerCallback()");
+        this.playerCallback = playerCallback;
+        this.startPlayer = startPlayer;
+    }
+
+    @Override
+    public void addPenalties(int penalties) throws MaxPenaltyException {
+        Log.d(debugMSG,playerName + " gets "+penalties+" penalties");
+        if(playerPenalties+penalties > 13){ //TODO: von settings holen
+            throw new MaxPenaltyException(13);
+        }
+        playerPenalties+=penalties;
+    }
+
 
     @Override
     public void stay() throws PlayerActionNotAllowedException {
@@ -113,6 +172,7 @@ public class PlayerImpl implements Player {
             throw new PlayerActionNotAllowedException("The player cant call stay"); // TODO:von Strings.xml holen ?
         }
     }
+
 
     @Override
     public void rollTheDice() throws PlayerActionNotAllowedException {
@@ -163,72 +223,36 @@ public class PlayerImpl implements Player {
         }
     }
 
-   @Override
-    public int getDiceThrows() {
-        Log.d(debugMSG,"return dice throws ("+diceThrows+")");
-        return diceThrows;
-    }
+    /*
+     * *********************************************
+     * private methods
+     * ********************************************
+     */
+
+   // private boolean isAbleToCallStay(){
+
+    //}
+
+   // private boolean isAbleToRollTheDice(){
+
+   // }
+
+   // private boolean isAbleToOpenTheCup(){
+
+   // }
 
 
+    /*
+     * ***********************************
+     *  getter and setter
+     * ***********************************
+     */
     @Override
-    public boolean isRoundFinished() {
-        Log.d(debugMSG,"return round finished ("+roundFinished+")");
-        return roundFinished;
+    public String getName() {
+        Log.d(debugMSG,"Method getName()");
+        return playerName;
     }
 
-    @Override
-    public boolean isFinsishedWithThrows() {
-        return finishedThrows;
-    }
-
-    @Override
-    public void newRound() {
-        Log.d(debugMSG,"Method newRound()");
-        diceThrows = 0;
-        // TODO: clear outs
-        roundFinished = false;
-        alreadyRolled = false;
-        alreadyUp = false;
-    }
-
-    @Override
-    public void newGame() {
-        Log.d(debugMSG,"Method newGame()");
-        // TODO: set halfs to zero
-        nextHalf();
-    }
-
-    @Override
-    public void nextHalf() {
-        Log.d(debugMSG,"Method nextHalf()");
-        newRound();
-        playerPenalties = 0;
-    }
-
-    @Override
-    public void turn(boolean startPlayer,PlayerCallback playerCallback) {
-        Log.d(debugMSG,"Method playerCallback()");
-        this.playerCallback = playerCallback;
-        this.startPlayer = startPlayer;
-    }
-
-    @Override
-    public void addPenalties(int penalties) throws MaxPenaltyException {
-        Log.d(debugMSG,playerName + " gets "+penalties+" penalties");
-        if(playerPenalties+penalties > 13){ //TODO: von settings holen
-            throw new MaxPenaltyException(13);
-        }
-        playerPenalties+=penalties;
-    }
-
-    @Override
-    public void setPenalties(int penalties) throws MaxPenaltyException {
-        Log.d(debugMSG,playerName + " gets "+penalties+" penalties");
-        if(penalties > 13){
-            throw new MaxPenaltyException(13);
-        }
-        playerPenalties = penalties;
-    }
 
     @Override
     public int getPenalties() {
@@ -245,18 +269,32 @@ public class PlayerImpl implements Player {
         return 0;
     }
 
-    /*
+
     @Override
-    public void addDiceToDiceOuts(Dice dice) throws MaxAddDiceException {
-        if(dicesOut.size()+1 > 3){ // TODO: aus settings holen
-            throw new MaxAddDiceException(3);
+    public void setPenalties(int penalties) throws MaxPenaltyException {
+        Log.d(debugMSG,playerName + " gets "+penalties+" penalties");
+        if(penalties > 13){
+            throw new MaxPenaltyException(13);
         }
-        dicesOut.add(dice);
+        playerPenalties = penalties;
+    }
+
+
+    @Override
+    public boolean isRoundFinished() {
+        Log.d(debugMSG,"return round finished ("+roundFinished+")");
+        return roundFinished;
     }
 
     @Override
-    public void clearDiceOuts() {
-        dicesOut.clear();
+    public boolean isFinsishedWithThrows() {
+        return finishedThrows;
     }
-    */
+
+
+    @Override
+    public int getDiceThrows() {
+        Log.d(debugMSG,"return dice throws ("+diceThrows+")");
+        return diceThrows;
+    }
 }

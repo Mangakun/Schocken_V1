@@ -32,14 +32,16 @@ public class PlayerActionStayTest extends PlayerTest {
             }
             try {
                 player.rollTheDice();
+                Assert.fail("The player can not roll the dices");
             } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
+
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
             try {
                 player.stay();
+                Assert.fail("The player can not call stay!");
             } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can call stay!");
+
             }
             Assert.assertTrue("The player is finished for this round",player.isRoundFinished());
         }
