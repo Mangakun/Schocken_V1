@@ -41,17 +41,7 @@ public class PlayerTest {
         }
     }
 
-    /**
-     * This method creates a new round for every test method.
-     */
-    @Before
-    public void newRound(){
-        for(final Player player :players){
-            player.newRound();
-        }
-    }
-
-    /**
+       /**
      * This method tests, if the list of players is not empty.
      */
     @Test

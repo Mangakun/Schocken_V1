@@ -7,7 +7,7 @@ import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedExc
  * Created by Snaki on 18.11.2017.
  */
 
-public interface PlayerActions extends GameActions{
+public interface PlayerActions{
 
     /**
      * The player finishes his round.
@@ -22,11 +22,11 @@ public interface PlayerActions extends GameActions{
     void rollTheDice() throws PlayerActionNotAllowedException;
 
 
-    /**
-     * The player opens his cup.
-     * @throws PlayerActionNotAllowedException
-     */
-    void openCup() throws PlayerActionNotAllowedException;
+//    /**
+//     * The player opens his cup.
+//     * @throws PlayerActionNotAllowedException
+//     */
+//    void openCup() throws PlayerActionNotAllowedException;
 
     /**
      * The player calls blind.
@@ -40,5 +40,9 @@ public interface PlayerActions extends GameActions{
      */
     /*void block() throws PlayerActionNotAllowedException;*/
 
-
+    /**
+     * This method returns the count of  dice throws.
+     * @return The count of dice throws.
+     */
+    int getDiceThrows();
 }

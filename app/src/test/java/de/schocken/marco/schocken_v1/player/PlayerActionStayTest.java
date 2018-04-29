@@ -26,11 +26,6 @@ public class PlayerActionStayTest extends PlayerTest {
 
             }
             try {
-                player.openCup();
-                Assert.fail("Player cant open the dices, when nothing is under the cup");
-            } catch (PlayerActionNotAllowedException e) {
-            }
-            try {
                 player.rollTheDice();
                 Assert.fail("The player can not roll the dices");
             } catch (PlayerActionNotAllowedException e) {
@@ -43,7 +38,7 @@ public class PlayerActionStayTest extends PlayerTest {
             } catch (PlayerActionNotAllowedException e) {
 
             }
-            Assert.assertTrue("The player is finished for this round",player.isRoundFinished());
+//            Assert.assertTrue("The player is finished for this round",player.isRoundFinished());
         }
     }
 
