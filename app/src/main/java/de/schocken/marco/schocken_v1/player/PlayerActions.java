@@ -22,11 +22,11 @@ public interface PlayerActions{
     void rollTheDice() throws PlayerActionNotAllowedException;
 
 
-//    /**
-//     * The player opens his cup.
-//     * @throws PlayerActionNotAllowedException
-//     */
-//    void openCup() throws PlayerActionNotAllowedException;
+    /**
+     * The player opens his cup.
+     * @throws PlayerActionNotAllowedException
+     */
+    void openCup() throws PlayerActionNotAllowedException;
 
     /**
      * The player calls blind.

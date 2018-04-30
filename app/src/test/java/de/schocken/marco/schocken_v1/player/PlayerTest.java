@@ -2,6 +2,7 @@ package de.schocken.marco.schocken_v1.player;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,19 +22,19 @@ public class PlayerTest {
     /**
      * A list of players.
      */
-    protected static List<Player> players;
+    protected List<Player> players;
 
     /**
      * A list of player names.
      */
-    private final static String[] playerNames = {"Marco", "Michelle", "Marei"};
+    private final String[] playerNames = {"Marco", "Michelle", "Marei"};
 
     /**
      * This method is called once before all player tests.
      * This method creates a player
      */
-    @BeforeClass
-    public static void createPlayers() {
+    @Before
+    public void createPlayers() {
         players = new ArrayList<>();
         for (final String playerName : playerNames) {
             final Player player = new PlayerImpl(playerName);
@@ -89,5 +90,4 @@ public class PlayerTest {
         Assert.assertTrue(players.get(2).getName() + " should be equal " + playerNames[2], players.get(2).getName().equals(playerNames[2]));
         Assert.assertFalse(players.get(2).getName() + " should be not equal " + playerNames[0], players.get(2).getName().equals(playerNames[0]));
     }
-
 }

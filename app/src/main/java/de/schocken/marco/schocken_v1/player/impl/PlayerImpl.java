@@ -166,7 +166,7 @@ public class PlayerImpl implements Player {
 //
 
     private boolean isAbleToCallStay() {
-        if(diceThrows > 0 && diceThrows < 3){
+        if(diceThrows > 0 && diceThrows < 3 && dicesOut.size() != 3){
             return true;
         }
         return false;
@@ -177,7 +177,8 @@ public class PlayerImpl implements Player {
     public void stay() throws PlayerActionNotAllowedException {
         Log.d(debugMSG,"Method stay()");
         if(isAbleToCallStay()){
-
+            dicesOut.addAll(dicesIn);
+            dicesIn.clear();
         }else{
             throw new PlayerActionNotAllowedException("The player cant call stay"); // TODO:von Strings.xml holen ?
         }
@@ -190,7 +191,7 @@ public class PlayerImpl implements Player {
 
 
     private boolean isAbleToRollTheDices(){
-        if(dicesOut.size() != 3){
+        if(dicesOut.size() != 3){ // TODO :3 from seetings
             if(diceThrows < maxDiceThrows) {
                 return true;
             }else{
@@ -231,25 +232,25 @@ public class PlayerImpl implements Player {
 //        }
     }
 
-//    @Override
-//    public void openCup() throws PlayerActionNotAllowedException {
-//        Log.d(debugMSG,"Method openCup()");
-//        /*
-//        The player can only open the cup, when
-//        - he has not already opened the cup
-//        - he has not finished yet
-//         */
-//        if(diceThrows > 0  && diceThrows < 3 && !alreadyUp){
-//            // TODO: was soll hier gemacht werden
-//            // now he can roll again
-//            alreadyRolled = false;
-//            alreadyUp = true;
-//            // update player view
-//            // stay button active
-//        }else{
-//            throw new PlayerActionNotAllowedException("The player can not open the cup"); // TODO: aus trings.xml ?
-//        }
-//    }
+    private boolean isAbleToOpenTheCup() {
+        if (dicesOut.size() != 3 && diceThrows < maxDiceThrows) { // TODO :3 from seetings
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void openCup() throws PlayerActionNotAllowedException {
+        Log.d(debugMSG,"Method openCup()");
+        if(isAbleToOpenTheCup()){
+
+        }else{
+            throw new PlayerActionNotAllowedException("The player can not open the cup"); // TODO: aus trings.xml ?
+        }
+    }
+
+
 //
 //    /*
 //     * *********************************************
