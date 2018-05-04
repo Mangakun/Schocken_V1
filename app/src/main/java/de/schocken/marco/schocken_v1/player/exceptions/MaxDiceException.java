@@ -6,12 +6,12 @@ package de.schocken.marco.schocken_v1.player.exceptions;
  * Created by Snaki on 02.12.2017.
  */
 
-public class MaxCoastersException extends Exception {
+public class MaxDiceException extends Exception {
 
     /**
-     * Constructor of the class {@link MaxCoastersException}.
+     * Constructor of the class {@link MaxDiceException}.
      */
-    public MaxCoastersException(){
-        super("The player can not have more than 13 coasters");
-    } // TODO: 13 aus settings holen
+    public MaxDiceException(){
+        super("The player can only play with "+3+" dices"); // TODO: from seetings holen
+    }
 }

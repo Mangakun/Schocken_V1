@@ -29,20 +29,22 @@ public interface PlayerActions{
     void openCup() throws PlayerActionNotAllowedException;
 
     /**
-     * The player calls blind.
-     * @throws PlayerActionNotAllowedException
-     */
-    /*void blind() throws PlayerActionNotAllowedException;*/
-
-    /**
-     * The player calls block. This is possible to call, when the player has 6 4 1 as dice value.
-     * @throws PlayerActionNotAllowedException
-     */
-    /*void block() throws PlayerActionNotAllowedException;*/
-
-    /**
      * This method returns the count of  dice throws.
      * @return The count of dice throws.
      */
     int getDiceThrows();
+
 }
+
+
+/**
+ * The player calls blind.
+ * @throws PlayerActionNotAllowedException
+ */
+/*void blind() throws PlayerActionNotAllowedException;*/
+
+/**
+ * The player calls block. This is possible to call, when the player has 6 4 1 as dice value.
+ * @throws PlayerActionNotAllowedException
+ */
+/*void block() throws PlayerActionNotAllowedException;*/

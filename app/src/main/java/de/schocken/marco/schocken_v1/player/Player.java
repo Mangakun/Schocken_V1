@@ -6,7 +6,7 @@ package de.schocken.marco.schocken_v1.player;
  * Created by Snaki on 07.11.2017.
   */
 
-public interface Player  extends PlayerActions{
+public interface Player  extends PlayerActions,PlayerGameActions,PlayerDiceActions{
 
     /**
      * This method returns the name of the {@link Player}.

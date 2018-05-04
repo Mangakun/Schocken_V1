@@ -1,4 +1,4 @@
-package de.schocken.marco.schocken_v1.player;
+package de.schocken.marco.schocken_v1.player;//package de.schocken.marco.schocken_v1.player;
 
 import junit.framework.Assert;
 
@@ -7,81 +7,25 @@ import org.junit.Test;
 import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedException;
 
 /**
- * This class tests the player actions "roll the dice" and stay.
- * Created by Snaki on 26.11.2017.
+ * This method tests the player action "open the cup".
+ * Created by Snaki on 18.11.2017.
  */
 
-public class PlayerActionRollTheDiceAndStayTest extends PlayerTest {
-
-
+public class PlayerActionRollTheDiceStayAndOpenTheCupTest extends PlayerTest {
     /**
-     * This method test the player actions "roll the dice" and stay.
+     * This method test the player actions "open the cup, stay and open the cup".
      */
     @Test
-    public void rollTheDiceAndStayTest(){
+    public void rollTheDiceStayAndOpenTheCupTest1(){
         for(final Player player: players) {
             try {
                 player.stay();
-                Assert.fail("Player cant call stay. At first he has to roll the dices");
+                Assert.fail("The player can not call stay.");
             } catch (PlayerActionNotAllowedException e) {
-
             }
             try {
-                player.rollTheDice();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
-            try {
-                player.stay();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can not call stay!");
-            }
-        }
-    }
-
-    /**
-     * This method test the player actions "roll the dice" and stay.
-     */
-    @Test
-    public void rollTheDiceAndStayTest2(){
-        for(final Player player: players) {
-            try {
-                player.stay();
-                Assert.fail("Player cant call stay. At first he has to roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            try {
-                player.rollTheDice();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
-            try {
-                player.stay();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can not call stay!");
-            }
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-        }
-    }
-
-
-    /**
-     * This method test the player actions "roll the dice" and stay.
-     */
-    @Test
-    public void rollTheDiceAndStayTest3(){
-        for(final Player player: players) {
-            try {
-                player.stay();
-                Assert.fail("Player cant call stay. At first he has to roll the dices");
+                player.openCup();
+                Assert.fail("The player can not open the cup.");
             } catch (PlayerActionNotAllowedException e) {
             }
             try {
@@ -90,40 +34,89 @@ public class PlayerActionRollTheDiceAndStayTest extends PlayerTest {
                 Assert.fail("The player can roll the dices");
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
-            try {
-                player.rollTheDice();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 2, player.getDiceThrows());
-            try {
-                player.rollTheDice();
-            } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 3, player.getDiceThrows());
-            try {
-                player.stay();
-                Assert.fail("The player can not call stay!");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
         }
     }
 
-
-
     /**
-     * This method test the player actions "roll the dice" and stay.
+     * This method test the player actions "open the cup, stay and open the cup".
      */
     @Test
-    public void rollTheDiceAndStayTest4(){
+    public void rollTheDiceStayAndOpenTheCupTest2(){
+        for(final Player player: players) {
+            try {
+                player.openCup();
+                Assert.fail("The player can not call stay.");
+            } catch (PlayerActionNotAllowedException e) {
+            }
+            try {
+                player.stay();
+                Assert.fail("The player can not open the cup.");
+            } catch (PlayerActionNotAllowedException e) {
+            }
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
+        }
+    }
+
+    /**
+     * This method test the player actions "open the cup, stay and open the cup".
+     */
+    @Test
+    public void rollTheDiceStayAndOpenTheCupTest3(){
+        for(final Player player: players) {
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
+            try {
+                player.openCup();
+                Assert.fail("The player can not open the cup.");
+            } catch (PlayerActionNotAllowedException e) {
+            }
+            try {
+                player.stay();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can call stay.");
+            }
+
+        }
+    }
+    /**
+     * This method test the player actions "open the cup, stay and open the cup".
+     */
+    @Test
+    public void rollTheDiceStayAndOpenTheCupTest4(){
+        for(final Player player: players) {
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
+
+            try {
+                player.stay();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can call stay.");
+            }
+            try {
+                player.openCup();
+                Assert.fail("The player can not open the cup.");
+            } catch (PlayerActionNotAllowedException e) {
+            }
+        }
+    }
+    /**
+     * This method test the player actions "open the cup, stay and open the cup".
+     */
+    @Test
+    public void rollTheDiceStayAndOpenTheCupTest5(){
         for(final Player player: players) {
             try {
                 player.rollTheDice();
@@ -140,39 +133,20 @@ public class PlayerActionRollTheDiceAndStayTest extends PlayerTest {
             try {
                 player.stay();
             } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
-            try {
-                player.stay();
-                Assert.fail("The player can not call stay!");
-            } catch (PlayerActionNotAllowedException e) {
-
+                Assert.fail("The player can call stay.");
             }
             try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
+                player.openCup();
+                Assert.fail("The player can not open the cup.");
             } catch (PlayerActionNotAllowedException e) {
-
             }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
         }
     }
-
-
-
     /**
-     * This method test the player actions "roll the dice" and stay.
+     * This method test the player actions "open the cup, stay and open the cup".
      */
     @Test
-    public void rollTheDiceAndStayTest5(){
+    public void rollTheDiceStayAndOpenTheCupTest6(){
         for(final Player player: players) {
             try {
                 player.rollTheDice();
@@ -187,40 +161,23 @@ public class PlayerActionRollTheDiceAndStayTest extends PlayerTest {
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
             try {
+                player.openCup();
+                Assert.fail("The player can not open the cup.");
+            } catch (PlayerActionNotAllowedException e) {
+            }
+            try {
                 player.stay();
             } catch (PlayerActionNotAllowedException e) {
-                Assert.fail("The player can roll the dices");
+                Assert.fail("The player can call stay.");
             }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
 
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
-            try {
-                player.stay();
-                Assert.fail("The player can not call stay!");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
         }
     }
-
-
     /**
-     * This method test the player actions "roll the dice" and stay.
+     * This method test the player actions "open the cup, stay and open the cup".
      */
     @Test
-    public void rollTheDiceAndStayTest6(){
+    public void rollTheDiceStayAndOpenTheCupTest7(){
         for(final Player player: players) {
             try {
                 player.rollTheDice();
@@ -241,33 +198,54 @@ public class PlayerActionRollTheDiceAndStayTest extends PlayerTest {
             }
             Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
             try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
+                player.openCup();
             } catch (PlayerActionNotAllowedException e) {
-
+                Assert.fail("The player can open the cup.");
             }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
             try {
                 player.stay();
-                Assert.fail("The player can not call stay!");
+                Assert.fail("The player can not call stay.");
             } catch (PlayerActionNotAllowedException e) {
 
             }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
-            try {
-                player.stay();
-                Assert.fail("The player can not call stay!");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            try {
-                player.rollTheDice();
-                Assert.fail("The player can not roll the dices");
-            } catch (PlayerActionNotAllowedException e) {
-
-            }
-            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
         }
     }
+    /**
+     * This method test the player actions "open the cup, stay and open the cup".
+     */
+    @Test
+    public void rollTheDiceStayAndOpenTheCupTest8(){
+        for(final Player player: players) {
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 1", 1, player.getDiceThrows());
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 2", 2, player.getDiceThrows());
+            try {
+                player.rollTheDice();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can roll the dices");
+            }
+            Assert.assertEquals("The player dices throws (" + player.getDiceThrows() + ") should be equal 3", 3, player.getDiceThrows());
 
+            try {
+                player.stay();
+                Assert.fail("The player can not call stay.");
+            } catch (PlayerActionNotAllowedException e) {
+
+            }
+            try {
+                player.openCup();
+            } catch (PlayerActionNotAllowedException e) {
+                Assert.fail("The player can open the cup.");
+            }
+        }
+    }
 }

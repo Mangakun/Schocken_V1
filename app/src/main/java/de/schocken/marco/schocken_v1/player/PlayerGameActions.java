@@ -14,20 +14,6 @@ import de.schocken.marco.schocken_v1.player.exceptions.MaxCoastersException;
 
 public interface PlayerGameActions {
 
-
-    /**
-     * This method returns the number which the player has out.
-     * @return The number of dices out.
-     */
-    int getNumberOfOutDices();
-
-    /**
-     * This method returns the dice value of the player.
-     * @return The dice value.
-     */
-    int getDiceValue();
-
-
     /**
      * This method returns the coasters of the player.
      * @return
@@ -47,15 +33,50 @@ public interface PlayerGameActions {
     void setCoasters(int coasters) throws MaxCoastersException;
 
     /**
-     * This method returns the amount of coasters which belongs to the players dice value.
-     * @return The coasters of the players dice value.
+     * This method starts the next half for the player.
      */
-    int getCoastersOfDiceValue();
+    void nextHalf();
 
     /**
-     * This method returns the dices, which has the player out.
-     * @return A list of dices which has the player out.
+     * This method starts the next round for the player.
      */
-    List<Dice> getDicesOuts();
+    void nextRound();
 
+    /**
+     * This method starts the next game for the player.
+     */
+    void nextGame();
+
+    /**
+     * This method returns the halfs of the player.
+     * @return The count of the halfs.
+     */
+    int getHalfs();
 }
+
+
+
+//    /**
+//     * This method returns the amount of coasters which belongs to the players dice value.
+//     * @return The coasters of the players dice value.
+//     */
+//    int getCoastersOfDiceValue();
+//
+//    /**
+//     * This method returns the dices, which has the player out.
+//     * @return A list of dices which has the player out.
+//     */
+//    List<Dice> getDicesOuts();
+
+
+//    /**
+//     * This method returns the number which the player has out.
+//     * @return The number of dices out.
+//     */
+//    int getNumberOfOutDices();
+//
+//    /**
+//     * This method returns the dice value of the player.
+//     * @return The dice value.
+//     */
+//    int getDiceValue();

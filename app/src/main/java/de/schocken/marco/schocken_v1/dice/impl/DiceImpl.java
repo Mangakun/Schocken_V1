@@ -1,18 +1,16 @@
 package de.schocken.marco.schocken_v1.dice.impl;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import java.util.Random;
 
 import de.schocken.marco.schocken_v1.dice.Dice;
-import de.schocken.marco.schocken_v1.dice.exceptions.DiceValueNotInIntervalException;
 
 /**
  * Created by Snaki on 02.12.2017.
  */
 
-public class DiceImpl implements Dice{
+public class DiceImpl implements Dice {
     /**
      * The value of the dice.
      */
@@ -50,13 +48,7 @@ public class DiceImpl implements Dice{
         return diceValue;
     }
 
-    @Override
-    public void setValue(int value) throws DiceValueNotInIntervalException {
-        if(value < 1 || value > 6){
-            throw new DiceValueNotInIntervalException(value);
-        }
-        diceValue = value;
-    }
+
 
     @Override
     public int compareTo(@NonNull final Dice another) {
@@ -72,3 +64,10 @@ public class DiceImpl implements Dice{
     }
 
 }
+//    @Override
+//    public void setValue(int value) throws DiceValueNotInIntervalException {
+//        if(value < 1 || value > 6){
+//            throw new DiceValueNotInIntervalException(value);
+//        }
+//        diceValue = value;
+//    }
