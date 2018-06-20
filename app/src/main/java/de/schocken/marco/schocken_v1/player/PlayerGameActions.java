@@ -52,6 +52,14 @@ public interface PlayerGameActions {
      * @return The count of the halfs.
      */
     int getHalfs();
+
+    /**
+     * This method returns the count of  dice throws.
+     * @return The count of dice throws.
+     */
+    int getDiceThrows();
+
+    void setMaxDiceThrows(final int maxDiceThrows);
 }
 
 

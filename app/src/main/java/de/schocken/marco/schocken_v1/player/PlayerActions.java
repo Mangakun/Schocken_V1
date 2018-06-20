@@ -1,5 +1,6 @@
 package de.schocken.marco.schocken_v1.player;
 
+import de.schocken.marco.schocken_v1.gameobserver.PlayerCallback;
 import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedException;
 
 /**
@@ -28,11 +29,11 @@ public interface PlayerActions{
      */
     void openCup() throws PlayerActionNotAllowedException;
 
-    /**
-     * This method returns the count of  dice throws.
-     * @return The count of dice throws.
-     */
-    int getDiceThrows();
+
+
+
+
+    void turn();
 
 }
 

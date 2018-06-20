@@ -8,5 +8,5 @@ package de.schocken.marco.schocken_v1.gameobserver;
 public interface PlayerCallback {
 
 
-    void callback();
+    void callback(final boolean finish);
 }

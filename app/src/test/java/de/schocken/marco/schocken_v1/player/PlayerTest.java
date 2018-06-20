@@ -37,7 +37,7 @@ public class PlayerTest {
     public void createPlayers() {
         players = new ArrayList<>();
         for (final String playerName : playerNames) {
-            final Player player = new PlayerImpl(playerName);
+            final Player player = new PlayerImpl(playerName,null);
             players.add(player);
         }
     }

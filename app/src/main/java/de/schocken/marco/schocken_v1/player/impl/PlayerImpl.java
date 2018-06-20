@@ -62,11 +62,11 @@ public class PlayerImpl implements Player {
      * The number of halfs.
      */
     private int halfs;
-//
-//    /**
-//     * An object of the class {@link PlayerCallback}.
-//     */
-//    private PlayerCallback playerCallback;
+
+    /**
+     * An object of the class {@link PlayerCallback}.
+     */
+    private PlayerCallback playerCallback;
 //
 //    /**
 //     * This variable stores if the player is the start player of the game.
@@ -79,9 +79,10 @@ public class PlayerImpl implements Player {
      *
      * @param playerName The name of the player.
      */
-    public PlayerImpl(final String playerName) {
+    public PlayerImpl(final String playerName, final PlayerCallback callback) {
         Log.d(debugMSG, "Constructor of the class Player");
         this.playerName = playerName;
+        this.playerCallback = callback;
         dicesIn = new ArrayList<>();
         for (int i = 0; i < 3; ++i) {// TODO: aus settings holen
             dicesIn.add(new DiceImpl());
@@ -114,6 +115,8 @@ public class PlayerImpl implements Player {
         if (isAbleToCallStay()) {
             dicesOut.addAll(dicesIn);
             dicesIn.clear();
+            clearPlayerView();
+            playerCallback.callback(true); // all dices are out
         } else {
             throw new PlayerActionNotAllowedException("The player cant call stay"); // TODO:von Strings.xml holen ?
         }
@@ -134,6 +137,14 @@ public class PlayerImpl implements Player {
             for (int i = 0; i < dicesIn.size(); ++i) {
                 dicesIn.get(i).roll();
             }
+            if (diceThrows == maxDiceThrows) {
+                clearPlayerView();
+                playerCallback.callback(false); // because not all dices are out
+            } else {
+                //set up player view
+                setUpPlayerView();
+            }
+
         } else {
             throw new PlayerActionNotAllowedException("The player can not roll the dices"); //TODO: von Strings.xml nehmen ?
         }
@@ -186,20 +197,18 @@ public class PlayerImpl implements Player {
 
     }
 
-
-
     @Override
     public void diceBackIn(final DiceValue diceValue) throws DiceNotFoundException {
-       if(!dicesOut.contains(diceValue)){
-           new DiceNotFoundException(diceValue.getValue());
-       }
-       dicesIn.add((Dice) diceValue);
-       dicesOut.remove(diceValue);
+        if (!dicesOut.contains(diceValue)) {
+            new DiceNotFoundException(diceValue.getValue());
+        }
+        dicesIn.add((Dice) diceValue);
+        dicesOut.remove(diceValue);
     }
 
     @Override
     public void diceOut(final DiceValue diceValue) throws DiceNotFoundException {
-        if(!dicesIn.contains(diceValue)){
+        if (!dicesIn.contains(diceValue)) {
             new DiceNotFoundException(diceValue.getValue());
         }
         dicesOut.add((Dice) diceValue);
@@ -217,10 +226,10 @@ public class PlayerImpl implements Player {
 
     }
 
-   private boolean containsDiceValue(final List<Dice> list, int diceValue){
+    private boolean containsDiceValue(final List<Dice> list, int diceValue) {
         boolean found = false;
-        for(final Dice dice : list){
-            if(dice.getValue() == diceValue){
+        for (final Dice dice : list) {
+            if (dice.getValue() == diceValue) {
                 found = true;
                 break;
             }
@@ -228,9 +237,9 @@ public class PlayerImpl implements Player {
         return found;
     }
 
-    private Dice getDiceObject(final List<Dice> list, int diceValue){
-        for(final Dice dice : list){
-            if(dice.getValue() == diceValue){
+    private Dice getDiceObject(final List<Dice> list, int diceValue) {
+        for (final Dice dice : list) {
+            if (dice.getValue() == diceValue) {
                 return dice;
             }
         }
@@ -244,14 +253,14 @@ public class PlayerImpl implements Player {
      */
 
     private boolean isAbleToCallStay() {
-        if (diceThrows > 0 && diceThrows < 3 && dicesOut.size() != 3) {
+        if (diceThrows > 0 && diceThrows < 3 && dicesOut.size() != 3) { // TODO :3 from settings
             return true;
         }
         return false;
     }
 
     private boolean isAbleToRollTheDices() {
-        if (dicesIn.size() != 0 && diceThrows < maxDiceThrows) { // TODO :3 from seetings
+        if (dicesIn.size() != 0 && diceThrows < maxDiceThrows) { // TODO :3 from settings
             return true;
         } else {
             return false;
@@ -259,11 +268,35 @@ public class PlayerImpl implements Player {
     }
 
     private boolean isAbleToOpenTheCup() {
-        if (dicesIn.size() != 0 && diceThrows == maxDiceThrows) { // TODO :3 from seetings
+        if (dicesIn.size() != 0 && diceThrows == maxDiceThrows) { // TODO :3 from settings
             return true;
         } else {
             return false;
         }
+    }
+
+    private void setUpPlayerView() {
+        // disable the whole view
+        if (isAbleToCallStay()) {
+            // enable button
+        } else {
+            // disable button
+        }
+        if (isAbleToOpenTheCup()) {
+            // enable button
+        } else {
+            // disable button
+        }
+        if (isAbleToRollTheDices()) {
+            // TODO: enable button
+        } else {
+            // disable button
+        }
+    }
+
+
+    private void clearPlayerView() {
+
     }
 
 
@@ -305,13 +338,29 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public void setMaxDiceThrows(int maxDiceThrows) {
+        this.maxDiceThrows = maxDiceThrows;
+    }
+
+    @Override
+    public void turn() {
+
+//        if(dicesOut.size() == 3){ // TODO :3 from seetings
+//            playerCallback.callback(true);
+//        }else {
+        setUpPlayerView();
+//        }
+    }
+
+
+    @Override
     public List<DiceValue> getDicesValuesIn() {
         return new ArrayList<DiceValue>(dicesIn);
     }
 
     @Override
     public List<DiceValue> getDicesValuesOut() {
-       return new ArrayList<DiceValue>(dicesOut);
+        return new ArrayList<DiceValue>(dicesOut);
     }
 
 }

@@ -19,7 +19,7 @@ public class PlayerActionRollTheDiceTest extends PlayerTest {
      */
     @Test
     public void rollTheDiceTest1() {
-        for (final PlayerActions player : players) {
+        for (final Player player : players) {
             Assert.assertNotNull("The player should not be null!", player);
             try {
                 player.rollTheDice();
@@ -50,7 +50,7 @@ public class PlayerActionRollTheDiceTest extends PlayerTest {
      */
     @Test
     public void rollTheDiceTest2() {
-        for (final PlayerActions player : players) {
+        for (final Player player : players) {
             Assert.assertNotNull("The player should not be null!", player);
             try {
                 player.rollTheDice();

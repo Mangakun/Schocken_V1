@@ -11,6 +11,14 @@ public interface GameObserver {
     /**
      * This method starts the game.
      */
-    void startGame();
+    void newGame();
+
+
+    void nextHalf();
+
+    void nextRound();
+
+
+    Player getCurrentPlayer();
 
 }
