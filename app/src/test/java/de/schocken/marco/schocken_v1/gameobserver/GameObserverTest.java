@@ -55,26 +55,26 @@ public class GameObserverTest {
         try {
             currentPlayer.rollTheDice();
         } catch (PlayerActionNotAllowedException e) {
-            e.printStackTrace();
+            Assert.fail("The player can roll the dices");
         }
         try {
             currentPlayer.rollTheDice();
         } catch (PlayerActionNotAllowedException e) {
-            e.printStackTrace();
+            Assert.fail("The player can roll the dices");
         }
         try {
             currentPlayer.rollTheDice();
         } catch (PlayerActionNotAllowedException e) {
-            e.printStackTrace();
+            Assert.fail("The player can roll the dices");
         }
         try {
             currentPlayer.rollTheDice();
-            Assert.fail();
+            Assert.fail("The player can not roll the dices");
         } catch (PlayerActionNotAllowedException e) {
-            e.printStackTrace();
+
         }
 
-        Assert.assertEquals(gameObserver.getCurrentPlayer(),save);
+        Assert.assertNotSame("Der Currentplayer sollte ein anderer sein",gameObserver.getCurrentPlayer(),save);
     }
 
 

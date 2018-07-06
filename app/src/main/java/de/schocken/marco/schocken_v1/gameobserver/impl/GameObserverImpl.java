@@ -36,7 +36,7 @@ public class GameObserverImpl implements GameObserver {
         currentBestPlayer = null;
         currentBestPlayer = null;
         currentWorstPlayer = null;
-        currentPlayers = null;
+        currentPlayers = new ArrayList<>();
         penaltyStack = 13;
         createPlayers(playerNames);
     }
@@ -56,6 +56,7 @@ public class GameObserverImpl implements GameObserver {
 
     @Override
     public void newGame() {
+        currentPlayers.clear();
         // erster Spieler startet bisher das Spiel
         /*
         Eine andere Möglichkeit wäre, dass jeder würfelt und
