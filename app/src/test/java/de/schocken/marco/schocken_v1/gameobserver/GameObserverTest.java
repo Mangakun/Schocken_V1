@@ -76,4 +76,6 @@ public class GameObserverTest {
 
         Assert.assertEquals(gameObserver.getCurrentPlayer(),save);
     }
+
+
 }
