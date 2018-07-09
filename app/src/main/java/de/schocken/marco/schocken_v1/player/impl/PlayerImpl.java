@@ -31,7 +31,7 @@ public class PlayerImpl implements Player {
     /**
      * The name of the player.
      */
-    private final String playerName;
+    private String playerName;
 
     /**
      * The dice throws of a player.
@@ -73,6 +73,7 @@ public class PlayerImpl implements Player {
 //     */
 //    private boolean startPlayer;
 //
+
 
     /**
      * Constructor of the class {@link PlayerImpl}.
@@ -226,6 +227,7 @@ public class PlayerImpl implements Player {
 
     }
 
+
     private boolean containsDiceValue(final List<Dice> list, int diceValue) {
         boolean found = false;
         for (final Dice dice : list) {
@@ -362,6 +364,7 @@ public class PlayerImpl implements Player {
     public List<DiceValue> getDicesValuesOut() {
         return new ArrayList<DiceValue>(dicesOut);
     }
+
 
 }
 

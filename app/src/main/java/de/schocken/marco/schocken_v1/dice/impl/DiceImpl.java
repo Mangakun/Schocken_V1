@@ -29,15 +29,6 @@ public class DiceImpl implements Dice {
         random = new Random();
     }
 
-    /**
-     * Constructor of the class {@link DiceImpl}.
-     * @param diceValue The start value which should the dice have.
-     */
-    public DiceImpl(final int diceValue){
-        this.diceValue = diceValue;
-        random = new Random();
-    }
-
     @Override
     public void roll() {
         diceValue = (random.nextInt(6) + 1);
@@ -52,7 +43,8 @@ public class DiceImpl implements Dice {
 
     @Override
     public int compareTo(@NonNull final Dice another) {
-        return another.getValue() - this.diceValue;
+        System.out.println("hier");
+        return another.getValue() - getValue();
     }
 
     @Override
@@ -64,10 +56,3 @@ public class DiceImpl implements Dice {
     }
 
 }
-//    @Override
-//    public void setValue(int value) throws DiceValueNotInIntervalException {
-//        if(value < 1 || value > 6){
-//            throw new DiceValueNotInIntervalException(value);
-//        }
-//        diceValue = value;
-//    }

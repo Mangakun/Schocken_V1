@@ -13,6 +13,7 @@ import java.util.List;
 
 import de.schocken.marco.schocken_v1.dice.Dice;
 import de.schocken.marco.schocken_v1.dice.DiceValue;
+import de.schocken.marco.schocken_v1.gameobserver.PlayerCallback;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -55,27 +56,30 @@ public class MockPlayerTest {
         assertEquals(3, returnList.get(1).getValue());
     }
 
-    /**
-     * A sequence class, when i use the method thenAnswer -> This means every time the method is called, some thing else is returned.
-     * @param <DiceValue>
-     */
-    private class SequenceAnswer<DiceValue> implements Answer<DiceValue>{
 
-        private Iterator<DiceValue> iterator;
 
-        private DiceValue last;
 
-        public SequenceAnswer(List<DiceValue> list){
-            this.iterator = list.iterator();
-            this.last = list.get(list.size()-1);
-        }
-
-        @Override
-        public DiceValue answer(InvocationOnMock invocation) throws Throwable {
-            if (iterator.hasNext()) {
-                return iterator.next();
-            }
-            return last;
-        }
-    }
+//    /**
+//     * A sequence class, when i use the method thenAnswer -> This means every time the method is called, some thing else is returned.
+//     * @param <DiceValue>
+//     */
+//    private class SequenceAnswer<DiceValue> implements Answer<DiceValue>{
+//
+//        private Iterator<DiceValue> iterator;
+//
+//        private DiceValue last;
+//
+//        public SequenceAnswer(List<DiceValue> list){
+//            this.iterator = list.iterator();
+//            this.last = list.get(list.size()-1);
+//        }
+//
+//        @Override
+//        public DiceValue answer(InvocationOnMock invocation) throws Throwable {
+//            if (iterator.hasNext()) {
+//                return iterator.next();
+//            }
+//            return last;
+//        }
+//    }
 }
