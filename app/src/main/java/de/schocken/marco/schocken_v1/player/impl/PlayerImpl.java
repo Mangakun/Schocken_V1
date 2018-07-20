@@ -14,6 +14,8 @@ import de.schocken.marco.schocken_v1.player.PlayerActions;
 import de.schocken.marco.schocken_v1.player.exceptions.DiceNotFoundException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxCoastersException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceException;
+import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
+import de.schocken.marco.schocken_v1.player.exceptions.MaxHalfException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxPenaltyException;
 import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedException;
 
@@ -67,13 +69,6 @@ public class PlayerImpl implements Player {
      * An object of the class {@link PlayerCallback}.
      */
     private PlayerCallback playerCallback;
-//
-//    /**
-//     * This variable stores if the player is the start player of the game.
-//     */
-//    private boolean startPlayer;
-//
-
 
     /**
      * Constructor of the class {@link PlayerImpl}.
@@ -93,11 +88,11 @@ public class PlayerImpl implements Player {
         nextGame();
     }
 
-//    /*
-//     * *********************************************
-//     * interface methods
-//     * ********************************************
-//     */
+    /*
+     * *********************************************
+     * interface methods
+     * ********************************************
+     */
 
 
     @Override
@@ -121,11 +116,6 @@ public class PlayerImpl implements Player {
         } else {
             throw new PlayerActionNotAllowedException("The player cant call stay"); // TODO:von Strings.xml holen ?
         }
-//        if (diceThrows > 0 && diceThrows <=3 && alreadyUp){ // TODO: 3 von settings holen
-//            roundFinished = true;
-//        }else{
-//
-//        }
     }
 
 
@@ -149,22 +139,6 @@ public class PlayerImpl implements Player {
         } else {
             throw new PlayerActionNotAllowedException("The player can not roll the dices"); //TODO: von Strings.xml nehmen ?
         }
-//        if(diceThrows >=0 && diceThrows < 3 && !alreadyRolled && !roundFinished && !finishedThrows){
-//            // increase dice throws
-//            ++diceThrows;
-//            // no roll again
-//            alreadyRolled = true;
-//            alreadyUp = false;
-//            for(int i=0; i<dicesIn.size();++i) {
-//                dicesIn.get(i).roll();
-//            }
-//            // reached maximum of throws
-//            if(diceThrows == 3){ // TODO: get from settings
-//                finishedThrows = true;
-//            }
-//        }else{
-//
-//        }
     }
 
 
@@ -195,7 +169,6 @@ public class PlayerImpl implements Player {
     public void nextGame() {
         halfs = 0;
         nextHalf();
-
     }
 
     @Override
@@ -214,19 +187,13 @@ public class PlayerImpl implements Player {
         }
         dicesOut.add((Dice) diceValue);
         dicesIn.remove(diceValue);
-//        if(!containsDiceValue(dicesIn,diceValue)){
-//            throw new DiceNotFoundException(diceValue);
-//        }
-//        Dice dice = getDiceObject(dicesIn,diceValue);
-//        if(dice != null){
-//            dicesOut.add(dice);
-//            dicesOut.remove(dice);
-//        }else{
-//            new RuntimeException("Dice object is null!");
-//        }
-
     }
 
+    /*
+     * *********************************************
+     * private methods
+     * ********************************************
+     */
 
     private boolean containsDiceValue(final List<Dice> list, int diceValue) {
         boolean found = false;
@@ -247,12 +214,6 @@ public class PlayerImpl implements Player {
         }
         return null;
     }
-
-    /*
-     * *********************************************
-     * private methods
-     * ********************************************
-     */
 
     private boolean isAbleToCallStay() {
         if (diceThrows > 0 && diceThrows < 3 && dicesOut.size() != 3) { // TODO :3 from settings
@@ -340,18 +301,24 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void setMaxDiceThrows(int maxDiceThrows) {
+    public void addHalf() throws MaxHalfException{
+        this.halfs += 1;
+        if(this. halfs > 2){
+            throw new MaxHalfException();
+        }
+    }
+
+    @Override
+    public void setMaxDiceThrows(int maxDiceThrows) throws MaxDiceThrowException{
         this.maxDiceThrows = maxDiceThrows;
+        if(this.maxDiceThrows > 3){
+            throw new MaxDiceThrowException();
+        }
     }
 
     @Override
     public void turn() {
-
-//        if(dicesOut.size() == 3){ // TODO :3 from seetings
-//            playerCallback.callback(true);
-//        }else {
         setUpPlayerView();
-//        }
     }
 
 
@@ -367,85 +334,3 @@ public class PlayerImpl implements Player {
 
 
 }
-
-//    @Override
-//    public int getDiceValueOfDiceOut(int index) throws IndexOutOfBoundsException {
-//        return dicesOut.get(index).getValue();
-//    }
-//
-//    @Override
-//    public int getDiceValue() {
-//        return 0;
-//    }
-//
-//
-//
-//
-//    @Override
-//    public boolean isRoundFinished() {
-//        Log.d(debugMSG,"return round finished ("+roundFinished+")");
-//        return roundFinished;
-//    }
-//
-//    @Override
-//    public boolean isFinsishedWithThrows() {
-//        return finishedThrows;
-//    }
-//
-//    // private boolean isAbleToOpenTheCup(){
-//
-//    // }
-//
-//
-
-//
-//
-//    @Override
-//    public void newRound() {
-//        Log.d(debugMSG,"Method newRound()");
-//        diceThrows = 0;
-//        // TODO: clear outs
-//        roundFinished = false;
-//        alreadyRolled = false;
-//        alreadyUp = false;
-//    }
-//
-//    @Override
-//    public void newGame() {
-//        Log.d(debugMSG,"Method newGame()");
-//        // TODO: set halfs to zero
-//        nextHalf();
-//    }
-//
-//    @Override
-//    public void nextHalf() {
-//        Log.d(debugMSG,"Method nextHalf()");
-//        newRound();
-//        playerPenalties = 0;
-//    }
-//
-//    @Override
-//    public void turn(boolean startPlayer,PlayerCallback playerCallback) {
-//        Log.d(debugMSG,"Method playerCallback()");
-//        this.playerCallback = playerCallback;
-//        this.startPlayer = startPlayer;
-//    }
-
-//
-//
-//
-//    /*
-//    @Override
-//    public void addDiceToDiceOuts(Dice dice) throws MaxAddDiceException {
-//        if(dicesOut.size()+1 > 3){ // TODO: aus settings holen
-//            throw new MaxAddDiceException(3);
-//        }
-//        dicesOut.add(dice);
-//    }
-//
-//    @Override
-//    public void clearDiceOuts() {
-//        dicesOut.clear();
-//    }
-//    */
-//

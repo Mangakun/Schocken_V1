@@ -5,6 +5,8 @@ import java.util.List;
 import de.schocken.marco.schocken_v1.dice.Dice;
 import de.schocken.marco.schocken_v1.player.PlayerActions;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxCoastersException;
+import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
+import de.schocken.marco.schocken_v1.player.exceptions.MaxHalfException;
 
 /**
  * This interface is an extension of the interface {@link PlayerActions}.
@@ -59,32 +61,7 @@ public interface PlayerGameActions {
      */
     int getDiceThrows();
 
-    void setMaxDiceThrows(final int maxDiceThrows);
+    void addHalf() throws MaxHalfException;
+
+    void setMaxDiceThrows(final int maxDiceThrows) throws MaxDiceThrowException;
 }
-
-
-
-//    /**
-//     * This method returns the amount of coasters which belongs to the players dice value.
-//     * @return The coasters of the players dice value.
-//     */
-//    int getCoastersOfDiceValue();
-//
-//    /**
-//     * This method returns the dices, which has the player out.
-//     * @return A list of dices which has the player out.
-//     */
-//    List<Dice> getDicesOuts();
-
-
-//    /**
-//     * This method returns the number which the player has out.
-//     * @return The number of dices out.
-//     */
-//    int getNumberOfOutDices();
-//
-//    /**
-//     * This method returns the dice value of the player.
-//     * @return The dice value.
-//     */
-//    int getDiceValue();

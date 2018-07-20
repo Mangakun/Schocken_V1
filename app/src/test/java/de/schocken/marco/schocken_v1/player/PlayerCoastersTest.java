@@ -48,10 +48,10 @@ public class PlayerCoastersTest extends PlayerTest {
     }
 
     /**
-     * This method tests the addPenalty function.
+     * This method tests the addCoasters function.
      */
     @Test
-    public void addPenaltyTest() throws MaxPenaltyException {
+    public void addCoastersTest() throws MaxPenaltyException {
         for (final Player player: players) {
             for (int i = 0; i < 15; ++i) {
                 try {
@@ -66,10 +66,10 @@ public class PlayerCoastersTest extends PlayerTest {
         }
     }
     /**
-     * This method tests the addPenalty function.
+     * This method tests the addCoasters function.
      */
     @Test
-    public void addPenaltyTest2() throws MaxPenaltyException {
+    public void addCoastersTest2() throws MaxPenaltyException {
         for (final Player player: players) {
             try {
                 player.addCoasters(1);
@@ -102,7 +102,7 @@ public class PlayerCoastersTest extends PlayerTest {
      * This method tests the addPenalty function.
      */
     @Test
-    public void addPenaltyTest3() throws MaxPenaltyException {
+    public void addCoastersTest3() throws MaxPenaltyException {
         for (final Player player: players) {
             try {
                 player.addCoasters(1);
