@@ -133,8 +133,8 @@ public class PlayerDiceTest extends PlayerTest {
                 Assert.fail("The dice should be in the list of dices in");
 
             }
-            Assert.assertEquals("The player should have 3 dices in ", 2, player.getDicesValuesIn().size());
-            Assert.assertEquals("The player should have 0 dices out ", 1, player.getDicesValuesOut().size());
+            Assert.assertEquals("The player should have 2 dices in ", 2, player.getDicesValuesIn().size());
+            Assert.assertEquals("The player should have 1 dices out ", 1, player.getDicesValuesOut().size());
         }
     }
 

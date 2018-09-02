@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.Random;
 
 import de.schocken.marco.schocken_v1.dice.Dice;
+import de.schocken.marco.schocken_v1.dice.DiceValue;
 
 /**
  * Created by Snaki on 02.12.2017.
@@ -42,7 +43,7 @@ public class DiceImpl implements Dice {
 
 
     @Override
-    public int compareTo(@NonNull final Dice another) {
+    public int compareTo(@NonNull final DiceValue another) {
         System.out.println("hier");
         return another.getValue() - getValue();
     }

@@ -7,6 +7,7 @@ import de.schocken.marco.schocken_v1.player.PlayerActions;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxCoastersException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxHalfException;
+import de.schocken.marco.schocken_v1.player.exceptions.NotEnoughDicesOutException;
 
 /**
  * This interface is an extension of the interface {@link PlayerActions}.
@@ -64,4 +65,8 @@ public interface PlayerGameActions {
     void addHalf() throws MaxHalfException;
 
     void setMaxDiceThrows(final int maxDiceThrows) throws MaxDiceThrowException;
+
+    int getDiceValueForCompare() throws NotEnoughDicesOutException;
+
+    int getCoastersOfDiceValue() throws NotEnoughDicesOutException;
 }

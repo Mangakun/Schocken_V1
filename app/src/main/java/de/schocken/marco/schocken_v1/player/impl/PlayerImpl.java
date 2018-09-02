@@ -3,6 +3,9 @@ package de.schocken.marco.schocken_v1.player.impl;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import de.schocken.marco.schocken_v1.dice.Dice;
@@ -17,6 +20,7 @@ import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxHalfException;
 import de.schocken.marco.schocken_v1.player.exceptions.MaxPenaltyException;
+import de.schocken.marco.schocken_v1.player.exceptions.NotEnoughDicesOutException;
 import de.schocken.marco.schocken_v1.player.exceptions.PlayerActionNotAllowedException;
 
 /**
@@ -189,31 +193,83 @@ public class PlayerImpl implements Player {
         dicesIn.remove(diceValue);
     }
 
+    @Override
+    public int getDiceValueForCompare() throws  NotEnoughDicesOutException{
+        if(getDicesValuesOut().size() <3 ){
+            throw new NotEnoughDicesOutException();
+        }
+        final List<DiceValue> dicesCopy = new ArrayList<>(getDicesValuesOut());
+        Collections.sort(dicesCopy);
+        for(int i=0;i<dicesCopy.size()-1;++i){
+            if(dicesCopy.get(i).getValue() < dicesCopy.get(i+1).getValue()){
+                throw new RuntimeException("The dices are not sorted");
+            }
+        }
+        double diceValueForCompare = 0.0;
+        int coastersOfDiceValue = getCoastersOfDiceValue();
+        for(int i = 0;i<dicesCopy.size();++i){
+            diceValueForCompare+=dicesCopy.get(i).getValue()*Math.pow(10,dicesCopy.size()-1-i);
+        }
+        diceValueForCompare += coastersOfDiceValue * 1000;
+        if(dicesCopy.get(1).getValue() == 1){
+            diceValueForCompare*=10;
+        }
+        return (int)diceValueForCompare;
+    }
+
+    @Override
+    public int getCoastersOfDiceValue() throws  NotEnoughDicesOutException{
+        if(getDicesValuesOut().size() <3 ){
+            throw new NotEnoughDicesOutException();
+        }
+        final List<DiceValue> dicesCopy = new ArrayList<>(getDicesValuesOut());
+        Collections.sort(dicesCopy);
+        for(int i=0;i<dicesCopy.size()-1;++i){
+            if(dicesCopy.get(i).getValue() < dicesCopy.get(i+1).getValue()){
+                throw new RuntimeException("The dices are not sorted");
+            }
+        }
+        final int diceValue1 = dicesCopy.get(0).getValue();
+        final int diceValue2 = dicesCopy.get(1).getValue();
+        final int diceValue3 = dicesCopy.get(2).getValue();
+        // Schocks
+        if(diceValue2 == 1 && diceValue3 == 1){
+            if(diceValue1 == 1){
+                return 13;
+            }
+            return diceValue1;
+        }else{
+            // general
+            if(diceValue1==diceValue2 && diceValue2 == diceValue3){
+                return 3;
+
+            }else{
+                if(diceValue1-1 == diceValue2 && diceValue2-1 == diceValue3){
+                    return 2;
+                }else{
+                    return 1;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void turn() {
+        setUpPlayerView();
+    }
+
+    @Override
+    public void addHalf() throws MaxHalfException{
+        this.halfs += 1;
+        if(this. halfs > 2){
+            throw new MaxHalfException();
+        }
+    }
     /*
      * *********************************************
      * private methods
      * ********************************************
      */
-
-    private boolean containsDiceValue(final List<Dice> list, int diceValue) {
-        boolean found = false;
-        for (final Dice dice : list) {
-            if (dice.getValue() == diceValue) {
-                found = true;
-                break;
-            }
-        }
-        return found;
-    }
-
-    private Dice getDiceObject(final List<Dice> list, int diceValue) {
-        for (final Dice dice : list) {
-            if (dice.getValue() == diceValue) {
-                return dice;
-            }
-        }
-        return null;
-    }
 
     private boolean isAbleToCallStay() {
         if (diceThrows > 0 && diceThrows < 3 && dicesOut.size() != 3) { // TODO :3 from settings
@@ -301,26 +357,12 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void addHalf() throws MaxHalfException{
-        this.halfs += 1;
-        if(this. halfs > 2){
-            throw new MaxHalfException();
-        }
-    }
-
-    @Override
     public void setMaxDiceThrows(int maxDiceThrows) throws MaxDiceThrowException{
         this.maxDiceThrows = maxDiceThrows;
         if(this.maxDiceThrows > 3){
             throw new MaxDiceThrowException();
         }
     }
-
-    @Override
-    public void turn() {
-        setUpPlayerView();
-    }
-
 
     @Override
     public List<DiceValue> getDicesValuesIn() {
@@ -334,3 +376,23 @@ public class PlayerImpl implements Player {
 
 
 }
+
+//    private boolean containsDiceValue(final List<Dice> list, int diceValue) {
+//        boolean found = false;
+//        for (final Dice dice : list) {
+//            if (dice.getValue() == diceValue) {
+//                found = true;
+//                break;
+//            }
+//        }
+//        return found;
+//    }
+//
+//    private Dice getDiceObject(final List<Dice> list, int diceValue) {
+//        for (final Dice dice : list) {
+//            if (dice.getValue() == diceValue) {
+//                return dice;
+//            }
+//        }
+//        return null;
+//    }

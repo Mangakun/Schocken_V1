@@ -32,7 +32,7 @@ public class MockPlayerTest {
             }
 
             @Override
-            public int compareTo(@NonNull Dice dice) {
+            public int compareTo(@NonNull DiceValue dice) {
                 return 0;
             }
         });
@@ -43,7 +43,7 @@ public class MockPlayerTest {
             }
 
             @Override
-            public int compareTo(@NonNull Dice dice) {
+            public int compareTo(@NonNull DiceValue dice) {
                 return 0;
             }
         });
@@ -52,7 +52,7 @@ public class MockPlayerTest {
         when(player.getDicesValuesOut()).thenReturn(list);
         List<DiceValue> returnList = player.getDicesValuesOut();
         assertEquals(2, returnList.size());
-        assertEquals(2, returnList.get(1).getValue());
+        assertEquals(2, returnList.get(0).getValue());
         assertEquals(3, returnList.get(1).getValue());
     }
 

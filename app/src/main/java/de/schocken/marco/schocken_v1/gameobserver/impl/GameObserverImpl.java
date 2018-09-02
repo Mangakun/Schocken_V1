@@ -6,6 +6,7 @@ import java.util.List;
 import de.schocken.marco.schocken_v1.gameobserver.GameObserver;
 import de.schocken.marco.schocken_v1.gameobserver.PlayerCallback;
 import de.schocken.marco.schocken_v1.player.Player;
+import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
 import de.schocken.marco.schocken_v1.player.impl.PlayerImpl;
 
 /**
@@ -172,7 +173,11 @@ public class GameObserverImpl implements GameObserver {
 
     private void distributeMaxDiceThrows(final int maxDiceThrows){
         for(final Player player: currentPlayers){
-            player.setMaxDiceThrows(maxDiceThrows);
+            try {
+                player.setMaxDiceThrows(maxDiceThrows);
+            } catch (MaxDiceThrowException e) {
+                // TODO: was soll hier gemacht werden ?
+            }
         }
     }
 
