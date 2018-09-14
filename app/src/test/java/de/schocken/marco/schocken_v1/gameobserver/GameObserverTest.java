@@ -35,7 +35,7 @@ public class GameObserverTest {
      */
     @BeforeClass
     public static void createGameObserver() {
-        gameObserver = new GameObserverImpl(playerNames);
+        gameObserver = new GameObserverImpl();
     }
 
     /**
@@ -50,6 +50,7 @@ public class GameObserverTest {
     @Test
     public void nextPlayerTest(){
         gameObserver.newGame();
+        gameObserver.createPlayers(playerNames);
         Player currentPlayer = gameObserver.getCurrentPlayer();
         Player save = currentPlayer;
         try {

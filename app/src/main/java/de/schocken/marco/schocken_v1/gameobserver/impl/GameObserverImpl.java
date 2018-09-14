@@ -3,10 +3,10 @@ package de.schocken.marco.schocken_v1.gameobserver.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.schocken.marco.schocken_v1.factories.PlayerCreator;
 import de.schocken.marco.schocken_v1.gameobserver.GameObserver;
 import de.schocken.marco.schocken_v1.gameobserver.PlayerCallback;
 import de.schocken.marco.schocken_v1.player.Player;
-import de.schocken.marco.schocken_v1.player.exceptions.MaxDiceThrowException;
 import de.schocken.marco.schocken_v1.player.impl.PlayerImpl;
 
 /**
@@ -15,61 +15,52 @@ import de.schocken.marco.schocken_v1.player.impl.PlayerImpl;
  * This class manages the game.
  */
 
-public class GameObserverImpl implements GameObserver {
+public class GameObserverImpl implements GameObserver, PlayerCallback {
 
-    private List<Player> allPlayers;
-    private List<Player> currentPlayers;
+    private List<Player> players;
     private Player currentPlayer;
     private Player currentBestPlayer;
     private Player currentWorstPlayer;
     private int penaltyStack; // TODO get from settings
     private int maxThrows;
-
     private Player roundStarter;
-
-    private PlayerCallback playerCallback = new PlayerCallBack();
+    private PlayerCallback playerCallback;
 
     /**
      * Constructor of the class {@link GameObserverImpl}.
-     * @param playerNames An array of player names
      */
-    public GameObserverImpl(final String[] playerNames){
+    public GameObserverImpl(){
+        System.out.println("constructor GameObserverImpl");
         currentBestPlayer = null;
         currentBestPlayer = null;
         currentWorstPlayer = null;
-        currentPlayers = new ArrayList<>();
         penaltyStack = 13;
-        createPlayers(playerNames);
-    }
+        playerCallback = new PlayerCallBack();
 
-    /**
-     * This method creates players based on the player names.
-     * @param playerNames An array of names
-     */
-    private void createPlayers(final String[] playerNames){
-        allPlayers = new ArrayList<>();
-        for(String playerName : playerNames){
-            final Player player = new PlayerImpl(playerName,playerCallback);
-            // TODO: check if already in the list ?
-            allPlayers.add(player);
-        }
     }
 
     @Override
+    public void createPlayers(final String[] playerNames){
+        players = PlayerCreator.getINSTANCE().createPlayers(playerNames, playerCallback);
+        for(Player player : players){
+            System.out.println(player.getName());
+        }
+    }
+
+
+    @Override
     public void newGame() {
-        currentPlayers.clear();
         // erster Spieler startet bisher das Spiel
         /*
         Eine andere Möglichkeit wäre, dass jeder würfelt und
          */
-        currentPlayers.addAll(allPlayers);
 
         // init players
-        for(final Player player : currentPlayers){
+        for(final Player player : players){
             player.nextGame();
         }
         // first player starts the game
-        currentPlayer = currentPlayers.get(0);
+        currentPlayer = players.get(0);
         roundStarter = currentPlayer;
         currentPlayer.turn(); // TODO:
     }
@@ -151,19 +142,13 @@ public class GameObserverImpl implements GameObserver {
         // TODO:
     }
 
-    private void addCurrentPlayers(){
-        for (final Player player: allPlayers){
-
-        }
-        currentWorstPlayer.turn();
-    }
 
     private void nextPlayer(final int index){
-        if(currentPlayers.size()>0){
-            if(index == currentPlayers.size()){
-                currentPlayer = currentPlayers.get(0);
+        if(players.size()>0){
+            if(index == players.size()){
+                currentPlayer = players.get(0);
             }else{
-                currentPlayer = currentPlayers.get(index);
+                currentPlayer = players.get(index);
             }
             currentPlayer.turn();
         }else{
@@ -172,39 +157,34 @@ public class GameObserverImpl implements GameObserver {
     }
 
     private void distributeMaxDiceThrows(final int maxDiceThrows){
-        for(final Player player: currentPlayers){
-            try {
-                player.setMaxDiceThrows(maxDiceThrows);
-            } catch (MaxDiceThrowException e) {
-                // TODO: was soll hier gemacht werden ?
-            }
+        for(final Player player: players){
+           // player.setMaxDiceThrows(maxDiceThrows);
         }
     }
 
 
-    class PlayerCallBack implements PlayerCallback{
+    public class PlayerCallBack implements PlayerCallback{
 
 
         @Override
         public void callback(final boolean finish) {
-
-
+                System.out.println("joooooooooooooooooooooooo");
             // if finish -> take out player
-            if(finish){
-                if(currentPlayer == roundStarter){
-                    // TODO: set global max dice throws
-                    distributeMaxDiceThrows( currentPlayer.getDiceThrows());
-                }
-                // TODO:
-              //  determineCurrentWorstPlayer();
-              //            determineCurrentBestPlayer();
-                // delete current player from list
-                int oldIndex = currentPlayers.indexOf(currentPlayer);
-                currentPlayers.remove(currentPlayer);
-                nextPlayer(oldIndex);
-            }else{
-                nextPlayer(currentPlayers.indexOf(currentPlayer)+1);
-            }
+//            if(finish){
+//                if(currentPlayer == roundStarter){
+//                    // TODO: set global max dice throws
+//                    distributeMaxDiceThrows( currentPlayer.getDiceThrows());
+//                }
+//                // TODO:
+//              //  determineCurrentWorstPlayer();
+//              //            determineCurrentBestPlayer();
+//                // delete current player from list
+//                int oldIndex = players.indexOf(currentPlayer);
+//                players.remove(currentPlayer);
+//                nextPlayer(oldIndex);
+//            }else{
+//                nextPlayer(players.indexOf(currentPlayer)+1);
+//            }
 
 
 

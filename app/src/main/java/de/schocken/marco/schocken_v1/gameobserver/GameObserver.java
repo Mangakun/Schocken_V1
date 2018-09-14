@@ -21,4 +21,7 @@ public interface GameObserver {
 
     Player getCurrentPlayer();
 
+
+    void createPlayers(final String[] playerNames);
+
 }
